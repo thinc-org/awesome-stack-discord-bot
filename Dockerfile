@@ -2,21 +2,17 @@ FROM --platform=amd64 node:16.19-alpine3.16 as base
 
 WORKDIR /app
 
-RUN npm i -g pnpm
+COPY package.json yarn.lock ./
 
-COPY package.json pnpm-lock.yaml ./
-
-RUN pnpm install --frozen-lockfile
+RUN yarn
 
 COPY prisma ./prisma
 
-RUN pnpm migration:generate
+RUN yarn prisma migrate deploy
 
 COPY . .
 
-RUN pnpm build
-
-# RUN pnpm prune --prod
+RUN yarn build
 
 FROM --platform=amd64 node:16.19-alpine3.16
 
