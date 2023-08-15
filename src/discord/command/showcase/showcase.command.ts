@@ -6,11 +6,12 @@ import {
 } from '@discord-nestjs/core';
 import { ClientEvents } from 'discord.js';
 
-import { ChannelService } from '../../../channel';
-import { Injectable } from '@nestjs/common';
 import { SlashCommandPipe } from '@discord-nestjs/common';
+import { Injectable } from '@nestjs/common';
+
+import { GithubDispatcherService } from '../../../github-dispatcher';
+import { ChannelService } from '../../../channel';
 import { ShowcaseDto } from './dto';
-import { GithubDispatcherService } from 'src/github-dispatcher/github-dispatcher.service';
 
 @Command({
   name: 'show',

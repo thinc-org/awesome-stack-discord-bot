@@ -1,7 +1,8 @@
-import { Injectable, Logger } from '@nestjs/common';
-import { db } from '../db';
 import { InjectDiscordClient } from '@discord-nestjs/core';
+import { Injectable, Logger } from '@nestjs/common';
 import { Client } from 'discord.js';
+
+import { db } from '../db';
 
 interface CreateChannelOrUpdateIfExistArgs {
   guildId: string;

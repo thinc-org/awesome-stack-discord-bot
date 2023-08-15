@@ -6,10 +6,10 @@ import {
   InteractionEvent,
 } from '@discord-nestjs/core';
 import { ClientEvents } from 'discord.js';
-
-import { SetChannelDto } from './dto';
-import { ChannelService } from '../../../channel';
 import { Injectable } from '@nestjs/common';
+
+import { ChannelService } from '../../../channel';
+import { SetChannelDto } from './dto';
 
 @Command({
   name: 'register',

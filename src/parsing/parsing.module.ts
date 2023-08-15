@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+
 import { ParsingService } from './parsing.service';
 
 @Module({

@@ -1,7 +1,8 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import axios from 'axios';
-import { discordRequestDTO } from '../dto/discord_request';
+
+import { discordRequestDTO } from './dto';
 import { ParsingService } from '../parsing/parsing.service';
 
 @Injectable()
