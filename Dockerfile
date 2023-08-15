@@ -8,11 +8,11 @@ RUN yarn
 
 COPY prisma ./prisma
 
-RUN yarn prisma migrate deploy
+RUN yarn run prisma migrate deploy
 
 COPY . .
 
-RUN yarn build
+RUN yarn run build
 
 FROM --platform=amd64 node:16.19-alpine3.16
 
