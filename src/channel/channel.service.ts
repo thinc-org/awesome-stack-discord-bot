@@ -1,8 +1,9 @@
 import { InjectDiscordClient } from '@discord-nestjs/core';
-import { Injectable, Logger } from '@nestjs/common';
+import { Inject, Injectable, Logger } from '@nestjs/common';
 import { Client } from 'discord.js';
 
-import { db } from '../db';
+import { Kysely } from 'kysely';
+import { DB } from 'src/db/types';
 
 interface CreateChannelOrUpdateIfExistArgs {
   guildId: string;
@@ -17,6 +18,8 @@ export class ChannelService {
   constructor(
     @InjectDiscordClient()
     private readonly client: Client,
+    @Inject('DB_INSTANCE')
+    private readonly db: Kysely<DB>,
   ) {}
 
   async createChannelOrUpdateIfExist({
@@ -25,7 +28,7 @@ export class ChannelService {
     name,
   }: CreateChannelOrUpdateIfExistArgs): Promise<void> {
     try {
-      await db
+      await this.db
         .insertInto('guilds')
         .values({
           channel_id: channelId,
@@ -47,7 +50,7 @@ export class ChannelService {
     packageName: string,
     userId: string,
   ): Promise<void> {
-    const { channel_id: channelId } = await db
+    const { channel_id: channelId } = await this.db
       .selectFrom('guilds')
       .where('guild_id', '=', guildId)
       .select('channel_id')
