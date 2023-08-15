@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - main
+      - dev
 
 env:
   IMAGE: ghcr.io/thinc-org/awesome-stack-discord-bot
