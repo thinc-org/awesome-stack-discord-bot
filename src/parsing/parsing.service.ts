@@ -36,8 +36,6 @@ export class ParsingService {
       'info.',
       'status.',
       'developer.',
-      'developer.',
-      'developer.',
     ];
 
     const subDomain = commonSubDomain.find((sub) => domain.includes(sub)) ?? '';
