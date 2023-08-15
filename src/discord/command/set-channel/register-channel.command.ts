@@ -8,7 +8,7 @@ import {
 import { ClientEvents } from 'discord.js';
 
 import { SetChannelDto } from './dto';
-import { ChannelService } from 'src/channel';
+import { ChannelService } from '../../../channel';
 import { Injectable } from '@nestjs/common';
 
 @Command({

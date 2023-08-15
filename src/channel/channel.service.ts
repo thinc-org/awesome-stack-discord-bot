@@ -1,5 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { db } from 'src/db';
+import { db } from '../db';
 
 interface CreateChannelOrUpdateIfExistArgs {
   guildId: string;

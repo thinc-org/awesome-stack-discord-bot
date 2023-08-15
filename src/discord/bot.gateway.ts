@@ -1,5 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { Once, InjectDiscordClient, On } from '@discord-nestjs/core';
+import { Once, InjectDiscordClient } from '@discord-nestjs/core';
 import { Client } from 'discord.js';
 
 @Injectable()
