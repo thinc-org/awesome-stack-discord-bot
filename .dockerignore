@@ -1,0 +1,9 @@
+.git
+.github
+node_modules
+dist
+.husky
+README.md
+.env
+.env.docker
+.gitignore
