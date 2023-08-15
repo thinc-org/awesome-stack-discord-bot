@@ -8,7 +8,7 @@ RUN yarn
 
 COPY ./prisma ./prisma
 
-RUN yarn run prisma migrate deploy
+RUN yarn run prisma generate
 
 COPY . .
 
