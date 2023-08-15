@@ -7,7 +7,7 @@ import { BotModule } from './discord';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({ isGlobal: true }),
     DiscordModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
