@@ -24,13 +24,11 @@ export class RegisterChannelCommand {
     @InteractionEvent(SlashCommandPipe) dto: SetChannelDto,
     @EventParams() args: ClientEvents['interactionCreate'],
   ): Promise<string> {
-    console.log('DTO', dto);
-    console.log('Event args', args);
     await this.channelService.createChannelOrUpdateIfExist({
       guildId: args[0].guildId,
       name: args[0].guild.name,
       channelId: dto.channel,
     });
-    return `Channel Id is ${dto.channel}.`;
+    return 'Registration was successful!';
   }
 }

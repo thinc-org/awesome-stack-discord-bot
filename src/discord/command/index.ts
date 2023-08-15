@@ -1,2 +1,2 @@
-export * from './set-channel';
+export * from './register-channel';
 export * from './command.module';

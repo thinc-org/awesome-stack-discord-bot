@@ -4,7 +4,7 @@ import { GithubDispatcherService } from './github-dispatcher.service';
 
 @Module({
   imports: [ParsingModule],
-  controllers: [],
   providers: [GithubDispatcherService],
+  exports: [GithubDispatcherService],
 })
 export class GithubDispatcherModule {}

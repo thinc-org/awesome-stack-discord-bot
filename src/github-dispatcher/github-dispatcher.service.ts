@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import axios from 'axios';
 import { discordRequestDTO } from '../dto/discord_request';
@@ -6,6 +6,7 @@ import { ParsingService } from '../parsing/parsing.service';
 
 @Injectable()
 export class GithubDispatcherService {
+  private log = new Logger(GithubDispatcherService.name);
   constructor(
     private readonly parsingService: ParsingService,
     private readonly configService: ConfigService,
@@ -24,20 +25,15 @@ export class GithubDispatcherService {
       },
     };
     try {
-      const res = await axios.post(
-        this.configService.get('GITHUB_DISPATCH_URL'),
-        body,
-        {
-          headers: {
-            Accept: 'application/vnd.github.everest-preview+json',
-            Authorization: `Bearer ${this.configService.get('GITHUB_TOKEN')}`,
-            Host: 'api.github.com',
-          },
+      await axios.post(this.configService.get('GITHUB_DISPATCH_URL'), body, {
+        headers: {
+          Accept: 'application/vnd.github.everest-preview+json',
+          Authorization: `Bearer ${this.configService.get('GITHUB_TOKEN')}`,
+          Host: 'api.github.com',
         },
-      );
-      console.log(res.status);
+      });
     } catch (error) {
-      console.log(error);
+      this.log.error(error);
     }
   }
 }

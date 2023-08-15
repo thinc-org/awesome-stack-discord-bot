@@ -2592,8 +2592,8 @@ __metadata:
     "@types/supertest": ^2.0.12
     "@typescript-eslint/eslint-plugin": ^6.0.0
     "@typescript-eslint/parser": ^6.0.0
-    better-sqlite3: ^8.5.0
     axios: ^1.4.0
+    better-sqlite3: ^8.5.0
     discord.js: 14.12.1
     eslint: ^8.42.0
     eslint-config-prettier: ^9.0.0
