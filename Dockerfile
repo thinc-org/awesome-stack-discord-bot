@@ -6,10 +6,6 @@ COPY package.json yarn.lock ./
 
 RUN yarn
 
-COPY prisma ./prisma
-
-RUN yarn run prisma migrate deploy
-
 COPY . .
 
 RUN yarn run build
