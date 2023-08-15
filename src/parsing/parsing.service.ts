@@ -23,6 +23,25 @@ export class ParsingService {
     const commonTLDS = ['.com', '.net', '.org', '.app', '.co'];
     const tld = commonTLDS.find((tld) => domain.includes(tld)) ?? '';
 
-    return domain.replace(tld, '');
+    const commonSubDomain = [
+      'www.',
+      'blog.',
+      'dev.',
+      'app.',
+      'api.',
+      'docs.',
+      'help.',
+      'support.',
+      'about.',
+      'info.',
+      'status.',
+      'developer.',
+      'developer.',
+      'developer.',
+    ];
+
+    const subDomain = commonSubDomain.find((sub) => domain.includes(sub)) ?? '';
+
+    return domain.slice(subDomain.length).replace(tld, '');
   }
 }
