@@ -14,7 +14,9 @@ datasource db {
 }
 
 model Guild {
-    guildId   String @id
+    guildId   String @id @map("guild_id")
     name      String
-    channelId String
+    channelId String @map("channel_id")
+
+    @@map("guilds")
 }

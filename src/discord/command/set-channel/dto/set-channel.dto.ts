@@ -1,18 +1,12 @@
-import { Param } from '@discord-nestjs/core';
+import { Channel, Param } from '@discord-nestjs/core';
+import { ChannelType } from 'discord.js';
 
 export class SetChannelDto {
+  @Channel([ChannelType.GuildText])
   @Param({
-    name: 'song',
-    description:
-      'Name or URL of song/playlist. Could be from (Youtube, Spotify, SoundCloud)',
+    name: 'channel',
+    description: 'The channel to set as the showcase channel',
     required: true,
   })
-  song: string;
-
-  @Param({
-    name: 'volume',
-    description: 'Volume of the song',
-    required: true,
-  })
-  volume: string;
+  channel: string;
 }

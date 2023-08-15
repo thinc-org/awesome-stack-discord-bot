@@ -8,20 +8,29 @@ import {
 import { ClientEvents } from 'discord.js';
 
 import { SetChannelDto } from './dto';
+import { ChannelService } from 'src/channel';
+import { Injectable } from '@nestjs/common';
 
 @Command({
   name: 'register',
   description: 'register channel',
 })
+@Injectable()
 export class RegisterChannelCommand {
+  constructor(private channelService: ChannelService) {}
+
   @Handler()
-  onPlayCommand(
+  async onPlayCommand(
     @InteractionEvent(SlashCommandPipe) dto: SetChannelDto,
     @EventParams() args: ClientEvents['interactionCreate'],
-  ): string {
+  ): Promise<string> {
     console.log('DTO', dto);
     console.log('Event args', args);
-
-    return `Channel Id is ${dto.song}.`;
+    await this.channelService.createChannelOrUpdateIfExist({
+      guildId: args[0].guildId,
+      name: args[0].guild.name,
+      channelId: dto.channel,
+    });
+    return `Channel Id is ${dto.channel}.`;
   }
 }
