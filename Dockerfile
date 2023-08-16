@@ -1,4 +1,4 @@
-FROM --platform=amd64 node:16.19-alpine3.16 as base
+FROM --platform=amd64 node:18-alpine as base
 
 WORKDIR /app
 
@@ -14,7 +14,7 @@ COPY . .
 
 RUN yarn run build
 
-FROM --platform=amd64 node:16.19-alpine3.16
+FROM --platform=amd64 node:18-alpine
 
 COPY --from=base /app/node_modules ./node_modules
 COPY --from=base /app/dist ./dist
