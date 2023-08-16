@@ -4,6 +4,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { GatewayIntentBits } from 'discord.js';
 
 import { BotModule } from './discord';
+import { ChatgptModule } from './chatgpt/chatgpt.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { BotModule } from './discord';
       }),
     }),
     BotModule,
+    ChatgptModule,
   ],
 })
 export class AppModule {}

@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 
-import { ParsingModule } from '../parsing/parsing.module';
+import { ChatgptModule } from 'src/chatgpt/chatgpt.module';
 import { GithubDispatcherService } from './github-dispatcher.service';
 
 @Module({
-  imports: [ParsingModule],
+  imports: [ChatgptModule],
   providers: [GithubDispatcherService],
   exports: [GithubDispatcherService],
 })

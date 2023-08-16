@@ -1,45 +1,31 @@
 import { Injectable } from '@nestjs/common';
+import { JSDOM } from 'jsdom';
 
 @Injectable()
 export class ParsingService {
-  public getTitle(url: string): string {
-    // strip http prefix
-    const urlWithoutPrefix = url.replace(/(^\w+:|^)\/\//, '');
-    // check if it's github
-    const isGithub = urlWithoutPrefix.match(/^github.com/);
-    if (isGithub) {
-      // get the repo name
-      const paths = urlWithoutPrefix.split('/');
-      return `${paths[1]}/${paths[2]}`;
+  public extractPlainText(element: any): string {
+    let text = '';
+
+    if (element.nodeType === element.TEXT_NODE) {
+      text += element.textContent;
+    } else if (element.nodeType === element.ELEMENT_NODE) {
+      if (element.tagName === 'SCRIPT' || element.tagName === 'STYLE') {
+        // Skip content inside script tags
+        return text;
+      }
+      for (let child of element.childNodes) {
+        text += this.extractPlainText(child);
+      }
     }
 
-    // check if it's npm
-    const isNpm = urlWithoutPrefix.match(/^npmjs.com/);
-    if (isNpm) {
-      return urlWithoutPrefix.split('/')[2];
-    }
+    return text.trim();
+  }
 
-    const domain = urlWithoutPrefix.split('/')[0];
-    const commonTLDS = ['.com', '.net', '.org', '.app', '.co'];
-    const tld = commonTLDS.find((tld) => domain.includes(tld)) ?? '';
+  public getAllPlainText(htmlString: string): unknown {
+    const dom = new JSDOM(htmlString);
+    const tempDiv = dom.window.document.createElement('div');
+    tempDiv.innerHTML = htmlString;
 
-    const commonSubDomain = [
-      'www.',
-      'blog.',
-      'dev.',
-      'app.',
-      'api.',
-      'docs.',
-      'help.',
-      'support.',
-      'about.',
-      'info.',
-      'status.',
-      'developer.',
-    ];
-
-    const subDomain = commonSubDomain.find((sub) => domain.includes(sub)) ?? '';
-
-    return domain.slice(subDomain.length).replace(tld, '');
+    return this.extractPlainText(tempDiv);
   }
 }

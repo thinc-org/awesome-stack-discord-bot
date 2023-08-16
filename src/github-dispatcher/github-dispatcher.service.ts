@@ -2,24 +2,27 @@ import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import axios from 'axios';
 
+import { ChatgptService } from 'src/chatgpt/chatgpt.service';
 import { discordRequestDTO } from './dto';
-import { ParsingService } from '../parsing/parsing.service';
 
 @Injectable()
 export class GithubDispatcherService {
   private log = new Logger(GithubDispatcherService.name);
   constructor(
-    private readonly parsingService: ParsingService,
+    private readonly chatGPTService: ChatgptService,
     private readonly configService: ConfigService,
   ) {}
 
   public async triggerBuild(data: discordRequestDTO): Promise<void> {
-    const title = this.parsingService.getTitle(data.package_url);
+    const chatGPTData = await this.chatGPTService.getProjectInfo(
+      data.package_url,
+    );
     const body = {
       event_type: 'bot-webhook',
       client_payload: {
-        package_name: title,
-        tags: data.tags,
+        package_name: chatGPTData.name,
+        tags: chatGPTData.tags,
+        desc: chatGPTData.desc,
         package_url: data.package_url,
         from_server: data.from_server,
         by_user: data.by_user,

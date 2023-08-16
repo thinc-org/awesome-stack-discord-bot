@@ -7,11 +7,4 @@ export class ShowcaseDto {
     required: true,
   })
   package: string;
-
-  @Param({
-    name: 'tag',
-    description: 'The tag to show',
-    required: true,
-  })
-  tag: string;
 }
