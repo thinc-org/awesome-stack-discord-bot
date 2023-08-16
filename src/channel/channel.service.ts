@@ -56,6 +56,10 @@ export class ChannelService {
       .select('channel_id')
       .executeTakeFirst();
 
+    if (!channelId) {
+      throw new Error('Please set the channel first');
+    }
+
     const chan = this.client.channels.cache.get(channelId);
     if (chan.isTextBased()) {
       await chan.send(`${packageName} \nfrom <@${userId}>`);

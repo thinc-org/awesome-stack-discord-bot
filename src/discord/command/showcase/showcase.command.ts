@@ -34,11 +34,16 @@ export class ShowcaseCommand {
       from_server: args[0].guild.name,
       package_url: dto.package,
     });
-    this.channelService.sendShowcaseMessage(
-      args[0].guildId,
-      dto.package,
-      args[0].user.id,
-    );
+
+    try {
+      this.channelService.sendShowcaseMessage(
+        args[0].guildId,
+        dto.package,
+        args[0].user.id,
+      );
+    } catch (error) {
+      return 'Please set the channel first';
+    }
     return 'Showcase message was sent!';
   }
 }
