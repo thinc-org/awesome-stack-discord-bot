@@ -50,12 +50,13 @@ export class ChannelService {
     packageName: string,
     userId: string,
   ): Promise<void> {
-    const { channel_id: channelId } = await this.db
+    const guilds = await this.db
       .selectFrom('guilds')
       .where('guild_id', '=', guildId)
       .select('channel_id')
       .executeTakeFirst();
 
+    const channelId = guilds?.channel_id ?? null;
     if (!channelId) {
       throw new Error('Please set the channel first');
     }
