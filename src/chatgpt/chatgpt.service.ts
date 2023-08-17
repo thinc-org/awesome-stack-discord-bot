@@ -55,6 +55,9 @@ export class ChatgptService {
         },
       );
 
+      let content = resp.data.choices[0].message.content;
+      content = content.replace('```json', '').replace('```', '');
+
       const res: ChatGPTData = JSON.parse(resp.data.choices[0].message.content);
 
       return res;
