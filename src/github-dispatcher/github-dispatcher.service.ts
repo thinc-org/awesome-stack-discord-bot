@@ -14,21 +14,22 @@ export class GithubDispatcherService {
   ) {}
 
   public async triggerBuild(data: discordRequestDTO): Promise<void> {
-    const chatGPTData = await this.chatGPTService.getProjectInfo(
-      data.package_url,
-    );
-    const body = {
-      event_type: 'bot-webhook',
-      client_payload: {
-        package_name: chatGPTData.name,
-        tags: chatGPTData.tags,
-        desc: chatGPTData.desc,
-        package_url: data.package_url,
-        from_server: data.from_server,
-        by_user: data.by_user,
-      },
-    };
     try {
+      const chatGPTData = await this.chatGPTService.getProjectInfo(
+        data.package_url,
+      );
+      const body = {
+        event_type: 'bot-webhook',
+        client_payload: {
+          package_name: chatGPTData.name,
+          tags: chatGPTData.tags,
+          desc: chatGPTData.desc,
+          package_url: data.package_url,
+          from_server: data.from_server,
+          by_user: data.by_user,
+        },
+      };
+
       await axios.post(this.configService.get('GITHUB_DISPATCH_URL'), body, {
         headers: {
           Accept: 'application/vnd.github.everest-preview+json',
@@ -38,6 +39,7 @@ export class GithubDispatcherService {
       });
     } catch (error) {
       this.log.error(error);
+      throw error;
     }
   }
 }

@@ -29,21 +29,21 @@ export class ShowcaseCommand {
     @InteractionEvent(SlashCommandPipe) dto: ShowcaseDto,
     @EventParams() args: ClientEvents['interactionCreate'],
   ): Promise<string> {
-    this.githubDispatcher.triggerBuild({
-      by_user: args[0].user.username,
-      from_server: args[0].guild.name,
-      package_url: dto.package,
-    });
-
     try {
+      this.githubDispatcher.triggerBuild({
+        by_user: args[0].user.username,
+        from_server: args[0].guild.name,
+        package_url: dto.package,
+      });
+
       this.channelService.sendShowcaseMessage(
         args[0].guildId,
         dto.package,
         args[0].user.id,
       );
+      return 'Showcase message was sent!';
     } catch (error) {
-      return 'Please set the channel first';
+      return 'Something went wrong!';
     }
-    return 'Showcase message was sent!';
   }
 }

@@ -19,7 +19,6 @@ describe('GithubDispatcherService', () => {
   it('should be ok', async () => {
     await service.triggerBuild({
       package_url: 'https://entgo.io/',
-      tags: ['ORM'],
       from_server: 'thinc',
       by_user: 'byte',
     });

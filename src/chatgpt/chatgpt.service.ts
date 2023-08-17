@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import axios from 'axios';
 import { readFileSync } from 'fs';
@@ -9,6 +9,7 @@ import { ChatGPTResponse } from './dto/chatgpt-response.dto';
 
 @Injectable()
 export class ChatgptService {
+  private log = new Logger(ChatgptService.name);
   constructor(
     private readonly parsingService: ParsingService,
     private readonly configService: ConfigService,
@@ -37,8 +38,6 @@ export class ChatgptService {
       readFileSync('./src/static/prompt.txt', 'utf8') + '\n\n' + url;
     '\n\n' + this.parsingService.getAllPlainText(htmlString);
 
-    console.log('Sending message to GPT-3');
-
     try {
       const resp = await axios.post<ChatGPTResponse>(
         'https://api.openai.com/v1/chat/completions',
@@ -59,8 +58,8 @@ export class ChatgptService {
       const res: ChatGPTData = JSON.parse(resp.data.choices[0].message.content);
 
       return res;
-    } catch (e) {
-      console.log(e);
+    } catch (error) {
+      this.log.error(error);
       return null;
     }
   }
