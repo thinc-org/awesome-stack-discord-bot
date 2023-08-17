@@ -66,7 +66,7 @@ export class ChatgptService {
       return res;
     } catch (error) {
       this.log.error(error);
-      return null;
+      throw error;
     }
   }
 }
