@@ -41,8 +41,6 @@ export class ChatgptService {
       '\n\n' +
       this.parsingService.getAllPlainText(htmlString).slice(0, 2000);
 
-    console.log(message);
-
     try {
       const resp = await axios.post<ChatGPTResponse>(
         'https://api.openai.com/v1/chat/completions',
