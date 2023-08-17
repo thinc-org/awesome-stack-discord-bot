@@ -44,26 +44,4 @@ export class ChannelService {
       throw error;
     }
   }
-
-  async sendShowcaseMessage(
-    guildId: string,
-    packageName: string,
-    userId: string,
-  ): Promise<void> {
-    const guilds = await this.db
-      .selectFrom('guilds')
-      .where('guild_id', '=', guildId)
-      .select('channel_id')
-      .executeTakeFirst();
-
-    const channelId = guilds?.channel_id ?? null;
-    if (!channelId) {
-      throw new Error('Please set the channel first');
-    }
-
-    const chan = this.client.channels.cache.get(channelId);
-    if (chan.isTextBased()) {
-      await chan.send(`${packageName} \nfrom <@${userId}>`);
-    }
-  }
 }

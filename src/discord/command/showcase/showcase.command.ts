@@ -36,12 +36,7 @@ export class ShowcaseCommand {
         package_url: dto.package,
       });
 
-      this.channelService.sendShowcaseMessage(
-        args[0].guildId,
-        dto.package,
-        args[0].user.id,
-      );
-      return 'Showcase message was sent!';
+      return `${dto.package} \nfrom <@${args[0].user.id}>`;
     } catch (error) {
       return 'Something went wrong!';
     }
