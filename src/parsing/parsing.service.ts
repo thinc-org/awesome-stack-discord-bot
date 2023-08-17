@@ -21,7 +21,7 @@ export class ParsingService {
     return text.trim();
   }
 
-  public getAllPlainText(htmlString: string): unknown {
+  public getAllPlainText(htmlString: string): string {
     const dom = new JSDOM(htmlString);
     const tempDiv = dom.window.document.createElement('div');
     tempDiv.innerHTML = htmlString;

@@ -35,7 +35,7 @@ export class ChatgptService {
     }
 
     let message = CHAT_GPT_PROMPT + '\n\n' + url;
-    '\n\n' + this.parsingService.getAllPlainText(htmlString);
+    '\n\n' + this.parsingService.getAllPlainText(htmlString).slice(2000);
 
     try {
       const resp = await axios.post<ChatGPTResponse>(
