@@ -1,11 +1,11 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import axios from 'axios';
-import { readFileSync } from 'fs';
 import { JSDOM } from 'jsdom';
 import { ParsingService } from 'src/parsing/parsing.service';
 import { ChatGPTData } from './dto/chatgpt-message.dto';
 import { ChatGPTResponse } from './dto/chatgpt-response.dto';
+import CHAT_GPT_PROMPT from './prompt';
 
 @Injectable()
 export class ChatgptService {
@@ -34,8 +34,7 @@ export class ChatgptService {
       htmlString = dom.window.document.getElementById('readme').textContent;
     }
 
-    let message =
-      readFileSync('./src/static/prompt.txt', 'utf8') + '\n\n' + url;
+    let message = CHAT_GPT_PROMPT + '\n\n' + url;
     '\n\n' + this.parsingService.getAllPlainText(htmlString);
 
     try {
