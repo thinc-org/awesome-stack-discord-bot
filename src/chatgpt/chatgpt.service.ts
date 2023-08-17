@@ -34,8 +34,14 @@ export class ChatgptService {
       htmlString = dom.window.document.getElementById('readme').textContent;
     }
 
-    let message = CHAT_GPT_PROMPT + '\n\n' + url;
-    '\n\n' + this.parsingService.getAllPlainText(htmlString).slice(2000);
+    let message =
+      CHAT_GPT_PROMPT +
+      '\n\n' +
+      url +
+      '\n\n' +
+      this.parsingService.getAllPlainText(htmlString).slice(0, 2000);
+
+    console.log(message);
 
     try {
       const resp = await axios.post<ChatGPTResponse>(
