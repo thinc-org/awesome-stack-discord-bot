@@ -23,7 +23,7 @@ export class GithubDispatcherService {
         client_payload: {
           package_name: chatGPTData.name,
           tags: chatGPTData.tags,
-          desc: chatGPTData.desc,
+          desc: data.description ? data.description : chatGPTData.desc,
           package_url: data.package_url,
           from_server: data.from_server,
           by_user: data.by_user,

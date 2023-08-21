@@ -7,4 +7,9 @@ export class ShowcaseDto {
     required: true,
   })
   package: string;
+  @Param({
+    name: 'discription',
+    description: 'The package description',
+  })
+  description?: string;
 }
